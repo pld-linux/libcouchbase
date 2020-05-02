@@ -1,4 +1,8 @@
 # TODO: system libs (snappy, jsoncpp, cbsasl?, cliopts?)
+#
+# Conditional build:
+%bcond_with	hdrhistogram	# HdrHistogram for statistics recording
+
 Summary:	Couchbase C Client library
 Summary(pl.UTF-8):	Biblioteka kliencka C dla Couchbase
 Name:		libcouchbase
@@ -10,6 +14,7 @@ Group:		Libraries
 Source0:	https://github.com/couchbase/libcouchbase/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	945da5e3fd12233e53d6a9912875d45d
 URL:		https://github.com/couchbase/libcouchbase
+%{?with_hdrhistogram:BuildRequires:	HdrHistogram_c-devel}
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	libevent-devel
 BuildRequires:	libev-devel
@@ -88,6 +93,7 @@ Pliki nagłówkowe biblioteki Couchbase.
 install -d build
 cd build
 %cmake .. \
+	%{?with_hdrhistogram:LCB_USE_HDR_HISTOGRAM=ON} \
 	-DLCB_NO_MOCK=ON
 
 %{__make}
