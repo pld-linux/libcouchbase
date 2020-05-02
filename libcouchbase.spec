@@ -87,7 +87,8 @@ Pliki nagłówkowe biblioteki Couchbase.
 %build
 install -d build
 cd build
-%cmake ..
+%cmake .. \
+	-DLCB_NO_MOCK=ON
 
 %{__make}
 
