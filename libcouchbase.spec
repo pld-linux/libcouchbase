@@ -6,16 +6,16 @@
 Summary:	Couchbase C Client library
 Summary(pl.UTF-8):	Biblioteka kliencka C dla Couchbase
 Name:		libcouchbase
-Version:	3.0.1
-Release:	2
+Version:	3.3.10
+Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/couchbase/libcouchbase/releases
 Source0:	https://github.com/couchbase/libcouchbase/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	945da5e3fd12233e53d6a9912875d45d
+# Source0-md5:	d448a216eedc61d53600eb355e029323
 URL:		https://github.com/couchbase/libcouchbase
 %{?with_hdrhistogram:BuildRequires:	HdrHistogram_c-devel}
-BuildRequires:	cmake >= 2.8.12
+BuildRequires:	cmake >= 3.5.1
 BuildRequires:	libevent-devel
 BuildRequires:	libev-devel
 BuildRequires:	libstdc++-devel
@@ -119,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cbc
 %attr(755,root,root) %{_bindir}/cbc-*
 %attr(755,root,root) %{_libdir}/libcouchbase.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libcouchbase.so.6
+%attr(755,root,root) %ghost %{_libdir}/libcouchbase.so.8
 %dir %{_libdir}/libcouchbase
 %{_mandir}/man1/cbc.1*
 %{_mandir}/man1/cbc-*.1*
