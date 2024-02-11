@@ -21,7 +21,7 @@ BuildRequires:	libev-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libuv-devel
 BuildRequires:	openssl-devel
-#BuildRequires:	systemtap-sdt-devel
+BuildRequires:	systemtap-sdt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -96,7 +96,8 @@ cd build
 	%{?with_hdrhistogram:LCB_USE_HDR_HISTOGRAM=ON} \
 	-DLCB_NO_MOCK=ON
 
-%{__make}
+# dtrace use is racy
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
