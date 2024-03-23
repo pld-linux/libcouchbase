@@ -6,13 +6,13 @@
 Summary:	Couchbase C Client library
 Summary(pl.UTF-8):	Biblioteka kliencka C dla Couchbase
 Name:		libcouchbase
-Version:	3.3.11
+Version:	3.3.12
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/couchbase/libcouchbase/releases
 Source0:	https://github.com/couchbase/libcouchbase/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	02b6ed174a367f8521295938036c1cbb
+# Source0-md5:	9868dbfe53a6548f97c11924278038d6
 URL:		https://github.com/couchbase/libcouchbase
 %{?with_hdrhistogram:BuildRequires:	HdrHistogram_c-devel}
 BuildRequires:	cmake >= 3.5.1
