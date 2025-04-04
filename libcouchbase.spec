@@ -6,13 +6,13 @@
 Summary:	Couchbase C Client library
 Summary(pl.UTF-8):	Biblioteka kliencka C dla Couchbase
 Name:		libcouchbase
-Version:	3.3.12
+Version:	3.3.15
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/couchbase/libcouchbase/releases
 Source0:	https://github.com/couchbase/libcouchbase/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	9868dbfe53a6548f97c11924278038d6
+# Source0-md5:	229d56a88785e2ca82905eb07865aa02
 URL:		https://github.com/couchbase/libcouchbase
 %{?with_hdrhistogram:BuildRequires:	HdrHistogram_c-devel}
 BuildRequires:	cmake >= 3.5.1
@@ -23,6 +23,10 @@ BuildRequires:	libuv-devel
 BuildRequires:	openssl-devel
 BuildRequires:	systemtap-sdt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# dtrace script expects CPP to be cpp, not "gcc -E", so force it regardless of rpm version
+# (autotools-based rpm<4.19 used to have "gcc -E", cmake builds for 4.19+ switched to cpp)
+%define		__cpp	cpp
 
 %description
 This is the C client library for Couchbase
