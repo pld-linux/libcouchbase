@@ -6,21 +6,21 @@
 Summary:	Couchbase C Client library
 Summary(pl.UTF-8):	Biblioteka kliencka C dla Couchbase
 Name:		libcouchbase
-Version:	3.3.17
+Version:	3.3.19
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/couchbase/libcouchbase/releases
-Source0:	https://github.com/couchbase/libcouchbase/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	7042df5fdabd150c7006e128e6ee06c6
+Source0:	https://github.com/couchbase/libcouchbase/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	93a8e337a97097be4520edb77102264b
 URL:		https://github.com/couchbase/libcouchbase
 %{?with_hdrhistogram:BuildRequires:	HdrHistogram_c-devel}
-BuildRequires:	cmake >= 3.5.1
+BuildRequires:	cmake >= 3.17
 BuildRequires:	libevent-devel
 BuildRequires:	libev-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libuv-devel
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 1.1
 BuildRequires:	systemtap-sdt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -94,14 +94,12 @@ Pliki nagłówkowe biblioteki Couchbase.
 %{__sed} -i -e 's/ "4" / "5" /' doc/man/cbcrc.4
 
 %build
-install -d build
-cd build
-%cmake .. \
+%cmake -B build \
 	%{?with_hdrhistogram:LCB_USE_HDR_HISTOGRAM=ON} \
 	-DLCB_NO_MOCK=ON
 
 # dtrace use is racy
-%{__make} -j1
+%{__make} -C build -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -123,8 +121,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.markdown RELEASE_NOTES.markdown
 %attr(755,root,root) %{_bindir}/cbc
 %attr(755,root,root) %{_bindir}/cbc-*
-%attr(755,root,root) %{_libdir}/libcouchbase.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libcouchbase.so.8
+%{_libdir}/libcouchbase.so.*.*.*
+%ghost %{_libdir}/libcouchbase.so.8
 %dir %{_libdir}/libcouchbase
 %{_mandir}/man1/cbc.1*
 %{_mandir}/man1/cbc-*.1*
@@ -132,18 +130,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files io-libev
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcouchbase/libcouchbase_libev.so
+%{_libdir}/libcouchbase/libcouchbase_libev.so
 
 %files io-libevent
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcouchbase/libcouchbase_libevent.so
+%{_libdir}/libcouchbase/libcouchbase_libevent.so
 
 %files io-libuv
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcouchbase/libcouchbase_libuv.so
+%{_libdir}/libcouchbase/libcouchbase_libuv.so
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcouchbase.so
+%{_libdir}/libcouchbase.so
 %{_includedir}/libcouchbase
 %{_pkgconfigdir}/libcouchbase.pc
